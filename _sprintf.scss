@@ -1,0 +1,12 @@
+// https://github.com/corysimmons/sass-sprintf
+@function sprintf($format, $args, $_string: null, $_token: null) {
+  @each $_token in $format {
+    @if length($_token) > 1 {
+      $_token: format($_token, $args);
+    } @else if type-of($_token) == number {
+      $_token: nth($args, $_token);
+    }
+    $_string: '#{$_string}#{$_token}';
+  }
+  @return unquote($_string);
+}
